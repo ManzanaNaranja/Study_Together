@@ -18,7 +18,25 @@ exports.study_post = [
     }
 ]
 exports.start = function(req, res) {
-    res.send(`NOT IMPLEMENTED: studying subject: ${req.params.subject}`);
+    let subject = req.params.subject;
+    let cookies = req.cookies;
+    User.findById(cookies['id'])
+        .exec(function(err, results) {
+            if(err) results = false;
+            if(results) {
+                var person = results;
+                person.is_studying = true; // CHECK IF USER ALREADY IS STUDYING
+                person.start_time_stamp = Date.now();
+
+                User.findByIdAndUpdate(cookies['id'], person, {}, function(err) {
+                    if(err) { return next(err); }
+                    res.render('now_studying', {subject: subject, data: req.secret})
+                })
+            } else {
+                { return next(err); }
+            }
+        })
+        
 }
 
 exports.stop = function(req,res) {
