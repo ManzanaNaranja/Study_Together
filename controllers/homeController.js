@@ -3,7 +3,11 @@ const {body, oneOf, check, validationResult } = require('express-validator');
 
 // invitation to study
 exports.join_others = function(req, res) {
-    res.send("NOT IMPLEMENTED: 40 people currently studying. <button>join them!</button>")
+    res.render('join_them', {title: 'hi there',  data: req.secret})
+}
+
+exports.join_others_post = function(req, res) {
+   res.redirect('/study');
 }
 
 // lists users
@@ -47,8 +51,10 @@ exports.login_post = [
     }
 ]
 
-exports.logout_post = function(req, res) {
-    res.send("NOT IMPLEMENTED: logout post");
+exports.logout_post = function(req, res, next) {
+    let options = {maxAge: -1000, httpOnly: true, signed: false, sameSite: true};
+    res.cookie('id', 'none', options);
+    res.redirect(req.baseUrl + '/login');
 }
 
 exports.signup_get = function(req, res) {

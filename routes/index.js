@@ -5,6 +5,7 @@ var home_controller = require('../controllers/homeController');
 
 
 router.get('/', home_controller.join_others);
+router.post('/', home_controller.join_others_post);
 router.get('/people', home_controller.user_list);
 router.get('/people/:id', home_controller.user_detail);
 router.get('/login', home_controller.login_get);

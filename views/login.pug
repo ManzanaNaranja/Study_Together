@@ -13,6 +13,8 @@ html(lang='en')
             ul 
               for error in errors
                 li!= error.msg
+          if success 
+            li!= success
         label
         input#uid.form-input.form-control(type='text' placeholder='Username' name='username' required='true' value!=(undefined===username ? '' : username) autocomplete='off') 
         label
