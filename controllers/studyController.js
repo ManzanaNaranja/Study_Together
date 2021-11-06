@@ -18,6 +18,7 @@ exports.study_post = [
     }
 ]
 exports.start = function(req, res) {
+    url = req.baseUrl + req.url;
     let subject = req.params.subject;
     let cookies = req.cookies;
     User.findById(cookies['id'])
@@ -30,15 +31,41 @@ exports.start = function(req, res) {
 
                 User.findByIdAndUpdate(cookies['id'], person, {}, function(err) {
                     if(err) { return next(err); }
-                    res.render('now_studying', {subject: subject, data: req.secret})
+                    res.render('now_studying', {subject: subject, data: req.secret, url: url})
                 })
             } else {
                 { return next(err); }
             }
-        })
+    })
         
 }
 
 exports.stop = function(req,res) {
-    res.send(`NOT IMPLEMENTED: STOP studying ${req.params.subject}`);
+    let subject = req.params.subject;
+    let cookies = req.cookies;
+    var timePassed;
+    User.findById(cookies['id'])
+        .exec(function(err, results) {
+            if(err) results = false;
+            if(results) {
+                var person = results;
+                person.is_studying = false;
+                timePassed = Date.now() - person.start_time_stamp;
+                person.total_time_studied += timePassed;
+
+                User.findByIdAndUpdate(cookies['id'], person, {}, function(err) {
+                    if(err) { return next(err); }
+                    res.render('done_studying', {subject: subject, data: req.secret, timePassed: formatMs(timePassed)})
+                })
+            } else {
+                { return next(err); }
+            }
+    })
+}
+
+function formatMs(ms) {
+  var totalSeconds = Math.floor(ms / 1000);
+  var totalMinutes = Math.floor(totalSeconds / 60);
+  var totalHours = Math.floor(totalMinutes / 60);
+  return `${totalHours}hrs, ${totalMinutes%60}mins, ${totalSeconds%60}secs.`
 }

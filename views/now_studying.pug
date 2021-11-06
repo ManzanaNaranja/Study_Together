@@ -6,5 +6,5 @@ html(lang='en')
     title Study Together
   body
     h2 You are now studying #{subject}.
-    form#login_form.form(method='POST' action='' novalidate)
+    form#login_form.form(method='POST' action=`${url}/stop` novalidate)
       button.btn.btn-primary(type='submit') End Study Session
