@@ -17,6 +17,10 @@ exports.user_detail = function(req, res) {
 };
 
 exports.login_get = function(req, res) {
+    if(req.secret.loggedin == true) {
+       res.redirect('/');
+       return;
+    }
     res.render('login', {title: 'Login'});
 }
 
@@ -45,4 +49,16 @@ exports.login_post = [
 
 exports.logout_post = function(req, res) {
     res.send("NOT IMPLEMENTED: logout post");
+}
+
+exports.signup_get = function(req, res) {
+    if(req.secret.loggedin == true) {
+        res.redirect('/');
+        return;
+     }
+    res.render('signup', {title: 'Sign Up'});
+}
+
+exports.signup_post = function(req, res) {
+    res.send("NOT IMPLEMENTED: signup post");
 }

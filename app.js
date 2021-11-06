@@ -28,7 +28,9 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(auth);
 app.use((req, res, next) => {
-  if(req.url !== '/login' && req.url.split("/")[1] !== 'api' && req.secret.loggedin == false) {
+  if(req.url == '/signup') {
+    next();
+  } else if(req.url !== '/login' && req.url.split("/")[1] !== 'api' && req.secret.loggedin == false) {
     res.redirect(req.baseUrl + '/login');
   } else {
     next();

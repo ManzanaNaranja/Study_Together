@@ -17,8 +17,7 @@ html(lang='en')
         input#uid.form-input.form-control(type='text' placeholder='Username' name='username' required='true' value!=(undefined===username ? '' : username) autocomplete='off') 
         label
         input#pwd.form-input.form-control(type='text' placeholder='Password' name='password' required='true' autocomplete='off')
-        button.btn.btn-primary(type='submit') Login
+        button.btn.btn-primary(type='submit') Sign Up
     br
-    p don't have an account?
-    a(href='/signup') signup
-      
+    p already have an account?
+    a(href='/login') login

@@ -10,5 +10,7 @@ router.get('/people/:id', home_controller.user_detail);
 router.get('/login', home_controller.login_get);
 router.post('/login', home_controller.login_post);
 router.post('/logout',home_controller.logout_post);
+router.get('/signup', home_controller.signup_get);
+router.post('/signup',home_controller.signup_post);
 
 module.exports = router;
