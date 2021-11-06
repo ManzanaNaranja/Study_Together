@@ -15,6 +15,7 @@ var mongoDB = process.env.DB_PATH;
 mongoose.connect(mongoDB, { useNewUrlParser: true , useUnifiedTopology: true});
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+var auth = require('./myMiddleware/auth')
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -25,6 +26,15 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(auth);
+app.use((req, res, next) => {
+  if(req.url !== '/login' && req.url.split("/")[1] !== 'api' && req.secret.loggedin == false) {
+    res.redirect(req.baseUrl + '/login');
+  } else {
+    next();
+  }
+ 
+})
 
 app.use('/', indexRouter);
 app.use('/study', studyRouter);

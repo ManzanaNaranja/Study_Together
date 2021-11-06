@@ -1,0 +1,21 @@
+doctype html
+html(lang='en')
+  head  
+    meta(charset='UTF-8')
+    meta(name='viewport' content='width=device-width, initial-scale=1.0')
+    title #{title} 
+  body
+    form#login_form.form(method='POST' action='' novalidate)
+      div.form-group
+        h1 #{title}
+        div.errors
+          if errors
+            ul 
+              for error in errors
+                li!= error.msg
+        label
+        input#uid.form-input.form-control(type='text' placeholder='Username' name='username' required='true' value!=(undefined===username ? '' : username) autocomplete='off') 
+        label
+        input#pwd.form-input.form-control(type='text' placeholder='Password' name='password' required='true' autocomplete='off')
+        button.btn.btn-primary(type='submit') Login
+      
