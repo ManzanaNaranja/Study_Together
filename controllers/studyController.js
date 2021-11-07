@@ -17,7 +17,7 @@ exports.study_post = [
         }
     }
 ]
-exports.start = function(req, res) {
+exports.start = function(req, res, next) {
     url = req.baseUrl + req.url;
     let subject = req.params.subject;
     let cookies = req.cookies;
@@ -67,5 +67,5 @@ function formatMs(ms) {
   var totalSeconds = Math.floor(ms / 1000);
   var totalMinutes = Math.floor(totalSeconds / 60);
   var totalHours = Math.floor(totalMinutes / 60);
-  return `${totalHours}hrs, ${totalMinutes%60}mins, ${totalSeconds%60}secs.`
+  return `${totalHours}hrs, ${totalMinutes%60}mins, ${totalSeconds%60}secs`
 }

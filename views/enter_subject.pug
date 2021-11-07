@@ -1,19 +1,15 @@
-doctype html
-html(lang='en')
-  head  
-    meta(charset='UTF-8')
-    meta(name='viewport' content='width=device-width, initial-scale=1.0')
-    title Study Together
-  body
-    form#login_form.form(method='POST' action='' novalidate)
-      div.form-group
-        h1 #{data.user}, #{title}
-        div.errors
-          if errors
-            ul 
-              for error in errors
-                li!= error.msg
-        label Enter a subject to study   
-        input#uid.form-input.form-control(type='text' placeholder='Subject' name='subject' required='true' value!=(undefined===subject ? '' : subject) autocomplete='off') 
-        button.btn.btn-primary(type='submit') Submit
+extends layout
+
+block content
+  form#login_form.form(method='POST' action='' novalidate)
+    div.form-group
+      h1 #{data.user}, #{title}
+      div.errors
+        if errors
+          ul 
+            for error in errors
+              li!= error.msg
+      label Enter a subject to study   
+      input#uid.form-input.form-control(type='text' placeholder='Subject' name='subject' required='true' value!=(undefined===subject ? '' : subject) autocomplete='off') 
+      button.btn.btn-primary(type='submit') Submit
       

@@ -1,11 +1,20 @@
-doctype html
-html(lang='en')
-  head  
-    meta(charset='UTF-8')
-    meta(name='viewport' content='width=device-width, initial-scale=1.0')
-    title Study Together
-  body
-    h2 40 people currently studying. 
+extends layout
+
+block content
+  br
+  br
+  br
+  br
+  header(class="logo") Study Together! 
+  div.clock-container 
+    h2 40 
+      a(href='/people') people
+      |  are currently studying. 
+    div.bubble#b1
+    div.bubble#b2
+    div.bubble#b3
+    div.bubble#b4
+    br
     form#login_form.form(method='POST' action='' novalidate)
-      button.btn.btn-primary(type='submit') Join Them!
+      button#start(type='submit') Join Them!
       

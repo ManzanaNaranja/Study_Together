@@ -1,0 +1,19 @@
+extends layout
+
+block content
+  if user_list
+    div.right-table-container
+      table.table(style="margin-left: 0px")
+        thead
+          tr
+            th Name 
+            th Total Practice Time   
+        tbody
+          for e in user_list  
+            tr
+              td 
+                a(href='/people' + e.url) #{e.username}
+              td #{e.time_formatted}
+
+
+
